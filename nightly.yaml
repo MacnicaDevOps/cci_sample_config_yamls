@@ -3,10 +3,12 @@ jobs:
   build: 
     docker:
       - image: circleci/php
+    parallelism: 4
     steps:
       - checkout
       - run: |
           docker build -t $image .
+          
 workflows:
   version: 2
   build_workflow:
