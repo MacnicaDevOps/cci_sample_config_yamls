@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build: 
+    docker:
+      - image: circleci/php
+    steps:
+      - checkout
+      - run: |
+          docker build -t $image .
+workflows:
+  version: 2
+  build_workflow:
+    jobs:
+      - test
+  nightly_workflow:
+    triggers:
+      - schedule:
+          cron: "0 3 * * *"
+          filters:
+            branches:
+              only:
+                - master
